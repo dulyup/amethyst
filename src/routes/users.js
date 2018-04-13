@@ -19,42 +19,43 @@ app.get('/', (req, res) => {
 });
 
 app.get('/:userId', (req, res) => {
-    User.findById(req.params.id).exec()
+    User.findById(req.params.userId)
+        .exec()
         .then(doc => {
             if (doc) {
                 console.log("From database", doc);
-                res.status(200).JSON.stringify(doc);
-            } else{
+                res.status(200).json(doc);
+            } else {
                 res.status(404).json({message: 'No valid entry found for provided ID'});
             }
 
         })
         .catch(err => {
             console.log(err);
-            res.status(500).JSON.stringify(err)});
+            res.status(500).json({error: err});
         });
 
-app.post('/', (req, res) => {
-    const user = new User({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password
+    app.post('/', (req, res) => {
+        const user = new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password
+        });
+        user.save().then(result => {
+            console.log(result);
+        }).catch(e => console.log(e));
     });
-    user.save().then(result => {
-        console.log(result);
-    }).catch(e => console.log(e));
-});
 
-app.delete('/:userId', (req, res) => {
-    User.remove({_id: req.params.userId})
-        .exec()
-        .then(result => res.status(200).json(result))
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({error: err})
-        });
+    app.delete('/:userId', (req, res) => {
+        User.remove({_id: req.params.userId})
+            .exec()
+            .then(result => res.status(200).json(result))
+            .catch(err => {
+                console.log(err);
+                res.status(500).json({error: err})
+            });
+    });
 });
-
 module.exports = app;
 
 // router.get('/register', function (req, res, next) {
