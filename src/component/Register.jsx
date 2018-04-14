@@ -4,43 +4,66 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
+import {addNewUser} from "../webService/service";
+import config from '../config.json';
+
 // import axios from 'axios';
 
 class Register extends Component {
     constructor(props){
         super(props);
         this.state={
-            first_name:'',
-            last_name:'',
+            username:'',
+            avatar:'',
             email:'',
             password:''
         };
     }
 
-
-
     handleClick(event){
         //Add code here if you want to do something after register clicked
-        console.log('clicked register');
-        // let apiBaseUrl = "http://localhost:4000/api/";
-        // console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
-        // //To be done:check for empty values before hitting submit
-        // let self = this;
-        // let payload={
-        //     "first_name": this.state.first_name,
-        //     "last_name":this.state.last_name,
-        //     "email":this.state.email,
-        //     "password":this.state.password
-        // };
+        console.log('register clicked');
+        console.log("values",this.state.username,this.state.avatar,this.state.email,this.state.password);
+        //TODO:check for empty values before hitting submit
+        //TODO: whitelist
+        let self = this;
+        const user = {
+            "username": this.state.username,
+            "avatar":this.state.avatar,
+            "email":this.state.email,
+            "password":this.state.password
+        };
+        console.log(user);
+        addNewUser(config['server'], user)
+            .then(res => {
+                console.log(res);
+                if(res.data.code === 200){
+                    //  console.log("registration successfull");
+                    const loginScreen=[];
+                    loginScreen.push(<Login parentContext={this}/>);
+                    const loginMessage = "Not Registered yet.Go to registration";
+                    self.props.parentContext.setState({
+                        loginScreen:loginScreen,
+                        loginMessage:loginMessage,
+                        buttonLabel:"Register",
+                        isLogin:true
+                    });
+                }
+            })
+            .catch(err => console.log(err));
+        //TODO: if registered successfully, jump to Login page
+
+
         // axios.post(apiBaseUrl+'/register', payload)
         //     .then(function (response) {
         //         console.log(response);
         //         if(response.data.code === 200){
         //             //  console.log("registration successfull");
-        //             let loginScreen=[];
+        //             const loginScreen=[];
         //             loginScreen.push(<Login parentContext={this}/>);
-        //             let loginMessage = "Not Registered yet.Go to registration";
-        //             self.props.parentContext.setState({loginScreen:loginScreen,
+        //             const loginMessage = "Not Registered yet.Go to registration";
+        //             self.props.parentContext.setState({
+        //                 loginScreen:loginScreen,
         //                 loginMessage:loginMessage,
         //                 buttonLabel:"Register",
         //                 isLogin:true
@@ -63,15 +86,15 @@ class Register extends Component {
                         <TextField
                             hintText="Enter your Username"
                             floatingLabelText="Username"
-                            onChange = {(event,newValue) => this.setState({first_name:newValue})}
+                            onChange = {(event,newValue) => this.setState({username:newValue})}
                         />
                         <br/>
-                        {/*<TextField*/}
-                            {/*hintText="Enter your Last Name"*/}
-                            {/*floatingLabelText="Last Name"*/}
-                            {/*onChange = {(event,newValue) => this.setState({last_name:newValue})}*/}
-                        {/*/>*/}
-                        {/*<br/>*/}
+                        <TextField
+                            hintText="Enter your Avatar Url"
+                            floatingLabelText="Avatar"
+                            onChange = {(event,newValue) => this.setState({avatar:newValue})}
+                        />
+                        <br/>
                         <TextField
                             hintText="Enter your Email"
                             type="email"

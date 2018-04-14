@@ -29,7 +29,6 @@ class LoginScreen extends Component {
     }
 
     handleClick(event){
-        console.log("event",event);
         let loginMessage;
         if(this.state.isLogin){
             let loginScreen=[];

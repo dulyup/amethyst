@@ -5,6 +5,15 @@ const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
 
+//middleware
+app.use((req,res, next)=>{
+    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
+    next();
+});
+
+//后端的URI，与前端URI匹配
 app.get('/', (req, res) => {
     User.find()
         .exec()
@@ -12,9 +21,9 @@ app.get('/', (req, res) => {
             console.log(doc);
             res.status(200).json(doc);
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({error: err})
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e})
         })
 });
 
@@ -23,39 +32,99 @@ app.get('/:userId', (req, res) => {
         .exec()
         .then(doc => {
             if (doc) {
-                console.log("From database", doc);
+                console.log(doc);
                 res.status(200).json(doc);
             } else {
                 res.status(404).json({message: 'No valid entry found for provided ID'});
             }
 
         })
-        .catch(err => {
-            console.log(err);
-            res.status(500).json({error: err});
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e});
         });
-
-    app.post('/', (req, res) => {
-        const user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: req.body.password
-        });
-        user.save().then(result => {
-            console.log(result);
-        }).catch(e => console.log(e));
-    });
-
-    app.delete('/:userId', (req, res) => {
-        User.remove({_id: req.params.userId})
-            .exec()
-            .then(result => res.status(200).json(result))
-            .catch(err => {
-                console.log(err);
-                res.status(500).json({error: err})
-            });
-    });
 });
+
+app.get('/:username', (req, res) => {
+    User.where('username').equals(req.params.username)
+        .exec()
+        .then(doc => {
+            if (doc) {
+                console.log(doc);
+                res.status(200).json(doc);
+            } else {
+                res.status(404).json({message: 'No valid entry found for provided username'});
+            }
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e});
+        })
+});
+
+app.get('/:email', (req, res) => {
+    User.where('email').equals(req.params.email)
+        .exec()
+        .then(doc => {
+            if (doc) {
+                console.log(doc);
+                res.status(200).json(doc);
+            } else {
+                res.status(404).json({message: 'No valid entry found for provided email'});
+            }
+        })
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e});
+        })
+});
+
+app.post('/', (req, res) => {
+    const user = new User({
+        username: req.body.username,
+        avatar: req.body.avatar,
+        email: req.body.email,
+        password: req.body.password
+    });
+    user.save()
+        .then(result => {console.log(result);})
+        .catch(e => console.log(e));
+    //TODO: check the result of save, and send status of res
+});
+
+app.post('/login', passport.authenticate('local'), function (req, res) {
+
+    // req.user 中会包含在 deserializeUser 函数中传入的 user 数据
+    console.log("-------req.user-----------");
+    console.log(req.user);
+    console.log("-------req.user-----------");
+
+    let returnData = {
+        isSuccess: true,
+        uer: req.user
+    };
+
+    res.send(JSON.stringify(returnData));
+});
+
+// 调用我们之前在 passport-config 中封装的用于验证用户是否已经被验证的中间件函数
+// 即可限制未被验证的用户不能请求该路由，返回 Error: 401(Unauthorized)
+app.get('/testAuth', passport.authenticateMiddleware(), function(req, res) {
+
+    // ......
+
+});
+
+app.delete('/:userId', (req, res) => {
+    User.remove({_id: req.params.userId})
+        .exec()
+        .then(result => res.status(200).json(result))
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e})
+        });
+});
+
 module.exports = app;
 
 // router.get('/register', function (req, res, next) {

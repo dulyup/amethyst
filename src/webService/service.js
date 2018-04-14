@@ -1,11 +1,47 @@
-export const getSecret = (server) => {
-    let url = `${server}/game/`;
+export const getUserList = (server) => {
+    const url = `${server}/users`;
     return fetch(url, {
         method: 'POST',
         mode: 'CORS'
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
-        .catch( () => Promise.reject('get-secret-word-fail') );
+        .catch( () => Promise.reject('get-user-list-fail') );
+};
+
+export const getUserById = (server, userId) => {
+    const url = `${server}/users/:userId`;
+    return fetch(url, {
+        method: 'GET',
+        mode: 'CORS'
+    })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()))
+        .catch( () => Promise.reject('get user fail'));
+};
+
+export const getUserByName = (server, username) => {
+    const url = `${server}/users/:username`;
+    return fetch(url, {
+        method: 'GET',
+        mode: 'CORS'
+    })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()))
+        .catch( () => Promise.reject('get user fail'));
+};
+
+export const addNewUser = (server, user) => {
+    console.log(user);
+    const url = `${server}/users`;
+    return fetch(url, {
+        method: 'POST',
+        mode: 'CORS',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: user.username, avatar: user.avatar, email: user.email, password: user.password})
+    })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
+        .catch( () => Promise.reject('add-new-user-fail') );
 };
 
 export const getGuess = (server, secretId, common, preGuess) => {
