@@ -3,6 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import {login} from '../webService/service';
+import config from '../config.json';
 
 class Login extends Component {
     constructor(props){
@@ -15,34 +17,31 @@ class Login extends Component {
 
     handleClick(event){
         // Add code in handleClick() after click submit
-        console.log('clicked');
-        // var apiBaseUrl = "http://localhost:4000/api/";
-        // var self = this;
-        // var payload={
-        //     "email":this.state.username,
-        //     "password":this.state.password
-        // }
-        // axios.post(apiBaseUrl+'login', payload)
-        //     .then(function (response) {
-        //         console.log(response);
-        //         if(response.data.code == 200){
-        //             console.log("Login successfull");
-        //             var uploadScreen=[];
-        //             uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>)
-        //             self.props.appContext.setState({loginPage:[],uploadScreen:uploadScreen})
-        //         }
-        //         else if(response.data.code == 204){
-        //             console.log("Username password do not match");
-        //             alert("username password do not match")
-        //         }
-        //         else{
-        //             console.log("Username does not exists");
-        //             alert("Username does not exist");
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
+        console.log('clicked login');
+
+        const user = {
+            "username": this.state.username,
+            "password": this.state.password
+        };
+
+        let self = this;
+        login(config['server'], user)
+            .then(res => {
+                console.log(res);
+                if (res.data.code === 200) {
+                    console.log('login successfully');
+                    // const uploadScreen = [];
+                    // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>);
+                    // self.props.appContext.setState({loginPage:[], uploadScreen: uploadScreen})
+                } else if (res.data.code === 204) {
+                    console.log("Username password do not match");
+                } else {
+                    console.log("Username does not exists");
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {

@@ -1,6 +1,6 @@
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
-import User from '../src/routes/users';
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('../src/routes/users');
 
 passport.use(new LocalStrategy(
 
@@ -13,22 +13,22 @@ passport.use(new LocalStrategy(
         // 在编写 User.findUniqueUserByUsername 时，包含两个参数，一个是 username
         // 一个是我们现在所传入的回调函数，我们将获取到的用户信息传递给我们的回调函数
         User.findByUsername(username,  (err, user) => {
+            console.log(`Trying to verigy user, name:${username}, password:${user.password}`)
             if (err) {
-                console.log('出现错误.');
+                console.log('Failed to verify user.');
                 return done(err);
             }
             if (!user) {
-                console.log('没有找到对应的用户名.');
-
-                return done(null, false, {message: '没有找到对应的用户名.'});
+                console.log('Invalid username.');
+                return done(null, false, {message: 'Invalid username.'});
             }
             if (user.password !== password) {
-                console.log('密码匹配有误.');
-
-                return done(null, false, {message: '密码匹配有误.'});
+                console.log('Invalid password.');
+                return done(null, false, {message: 'Invalid password.'});
             }
-
+            console.log('Successfully authenticated!');
             return done(null, user);
+
         });
     }
 ));
@@ -55,6 +55,7 @@ passport.deserializeUser((username, done) => {
 passport.authenticateMiddleware = function authenticationMiddleware() {
     return (req, res, next) => {
         if (req.isAuthenticated()) {
+            console.log('login successfully');
             return next();
         }
         //TODO: jump to login page not use redirect
@@ -62,5 +63,4 @@ passport.authenticateMiddleware = function authenticationMiddleware() {
     }
 };
 
-
-export default passport;
+module.exports = passport;

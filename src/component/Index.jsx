@@ -6,7 +6,7 @@ import Login from './Login';
 import LoginScreen from './LoginScreen';
 // injectTapEventPlugin();
 
-class MainPage extends Component {
+class Index extends Component {
 
     constructor(props){
         super(props);
@@ -28,7 +28,7 @@ class MainPage extends Component {
                 {this.state.loginPage}
                 {this.state.uploadScreen}
                 <PostModalWindow />
-                <PostList/>
+                {/*<PostList/>*/}
             </div>
         );
     }
@@ -38,4 +38,4 @@ class MainPage extends Component {
 const style = {
     margin: 15,
 };
-export default MainPage;
+export default Index;

@@ -28,7 +28,7 @@ export const getUserByName = (server, username) => {
         .catch( () => Promise.reject('get user fail'));
 };
 
-export const addNewUser = (server, user) => {
+export const register = (server, user) => {
     console.log(user);
     const url = `${server}/users`;
     return fetch(url, {
@@ -41,7 +41,23 @@ export const addNewUser = (server, user) => {
         body: JSON.stringify({username: user.username, avatar: user.avatar, email: user.email, password: user.password})
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
-        .catch( () => Promise.reject('add-new-user-fail') );
+        .catch( () => Promise.reject('register-fail') );
+};
+
+export const login = (server, user) => {
+    const url = `${server}/users/login`;
+    console.log(user);
+    return fetch(url, {
+        method: 'POST',
+        mode: 'CORS',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: user.username, password: user.password})
+    })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
+        .catch( () => Promise.reject('login-fail') );
 };
 
 export const getGuess = (server, secretId, common, preGuess) => {

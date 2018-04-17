@@ -1,8 +1,6 @@
 const express = require('express');
 const passport = require('passport');
 const User = require('../model/user');
-const path = require('path');
-const mongoose = require('mongoose');
 const app = express();
 
 //middleware
@@ -37,7 +35,6 @@ app.get('/:userId', (req, res) => {
             } else {
                 res.status(404).json({message: 'No valid entry found for provided ID'});
             }
-
         })
         .catch(e => {
             console.log(e);
@@ -86,34 +83,49 @@ app.post('/', (req, res) => {
         email: req.body.email,
         password: req.body.password
     });
-    user.save()
-        .then(result => {console.log(result);})
-        .catch(e => console.log(e));
-    //TODO: check the result of save, and send status of res
+    User.register(user, req.body.password, (err, user) => {
+        if (err) {
+            console.log(err);
+            return res.render("register");
+        }
+        passport.authenticate("local")(req, res, () => {
+            console.log(`Successfully Signed Up! Nice to meet you ${req.body.username}`);
+            //jump to main page
+        })
+    })
+    // user.save()
+    //     .then(result => {console.log(result);})
+    //     .catch(e => console.log(e));
+    // //TODO: check the result of save, and send status of res
 });
 
-app.post('/login', passport.authenticate('local'), function (req, res) {
-
+app.post('/login', passport.authenticate('local'), (req, res) => {
     // req.user 中会包含在 deserializeUser 函数中传入的 user 数据
     console.log("-------req.user-----------");
     console.log(req.user);
     console.log("-------req.user-----------");
-
-    let returnData = {
+    const returnData = {
         isSuccess: true,
-        uer: req.user
+        username: req.user.username
     };
-
     res.send(JSON.stringify(returnData));
+});
+
+//test
+app.get('/session', (req, res) => {
+    console.log(req.session);
+    const sess = req.session;
+    console.log(`session id is: ${sess.id}`);
+    res.json(sess);
 });
 
 // 调用我们之前在 passport-config 中封装的用于验证用户是否已经被验证的中间件函数
 // 即可限制未被验证的用户不能请求该路由，返回 Error: 401(Unauthorized)
-app.get('/testAuth', passport.authenticateMiddleware(), function(req, res) {
-
-    // ......
-
-});
+// app.get('/testAuth', passport.authenticateMiddleware(), function(req, res) {
+//
+//     // ......
+//
+// });
 
 app.delete('/:userId', (req, res) => {
     User.remove({_id: req.params.userId})

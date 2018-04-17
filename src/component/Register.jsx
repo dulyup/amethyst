@@ -4,10 +4,8 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
-import {addNewUser} from "../webService/service";
+import {register} from "../webService/service";
 import config from '../config.json';
-
-// import axios from 'axios';
 
 class Register extends Component {
     constructor(props){
@@ -23,7 +21,6 @@ class Register extends Component {
     handleClick(event){
         //Add code here if you want to do something after register clicked
         console.log('register clicked');
-        console.log("values",this.state.username,this.state.avatar,this.state.email,this.state.password);
         //TODO:check for empty values before hitting submit
         //TODO: whitelist
         let self = this;
@@ -34,7 +31,7 @@ class Register extends Component {
             "password":this.state.password
         };
         console.log(user);
-        addNewUser(config['server'], user)
+        register(config['server'], user)
             .then(res => {
                 console.log(res);
                 if(res.data.code === 200){
@@ -53,26 +50,6 @@ class Register extends Component {
             .catch(err => console.log(err));
         //TODO: if registered successfully, jump to Login page
 
-
-        // axios.post(apiBaseUrl+'/register', payload)
-        //     .then(function (response) {
-        //         console.log(response);
-        //         if(response.data.code === 200){
-        //             //  console.log("registration successfull");
-        //             const loginScreen=[];
-        //             loginScreen.push(<Login parentContext={this}/>);
-        //             const loginMessage = "Not Registered yet.Go to registration";
-        //             self.props.parentContext.setState({
-        //                 loginScreen:loginScreen,
-        //                 loginMessage:loginMessage,
-        //                 buttonLabel:"Register",
-        //                 isLogin:true
-        //             });
-        //         }
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
     }
 
     render() {
