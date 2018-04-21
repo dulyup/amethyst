@@ -8,12 +8,14 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('../src/model/user');
 const session = require('express-session');
+const flash = require('connect-flash');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json({ extended: true, type: '*/*' }) );
 app.use(express.static(path.resolve(__dirname, '../react-react-ui/build')));
 app.use(cookieParser('secret'));
+app.use(flash());
 mongoose.connect("mongodb://localhost:27017/sharing");
 
 //requiring routes
@@ -40,8 +42,8 @@ passport.deserializeUser(User.deserializeUser());
 //=============================
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
-    // res.locals.success = req.flash('success');
-    // res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
     next();
 });
 
@@ -49,6 +51,7 @@ app.use(function(req, res, next){
 //=====IMPORT   ROUTES=========
 //=============================
 app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);

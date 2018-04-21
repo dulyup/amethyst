@@ -81,7 +81,7 @@ app.post('/', (req, res) => {
         username: req.body.username,
         avatar: req.body.avatar,
         email: req.body.email,
-        password: req.body.password
+        //don't send password to db
     });
     User.register(user, req.body.password, (err, user) => {
         if (err) {
@@ -99,16 +99,34 @@ app.post('/', (req, res) => {
     // //TODO: check the result of save, and send status of res
 });
 
+app.delete('/:userId', (req, res) => {
+    User.remove({_id: req.params.userId})
+        .exec()
+        .then(result => res.status(200).json(result))
+        .catch(e => {
+            console.log(e);
+            res.status(500).json({error: e})
+        });
+});
+
 app.post('/login', passport.authenticate('local'), (req, res) => {
     // req.user 中会包含在 deserializeUser 函数中传入的 user 数据
-    console.log("-------req.user-----------");
-    console.log(req.user);
-    console.log("-------req.user-----------");
+    // console.log(req.user);
     const returnData = {
         isSuccess: true,
         username: req.user.username
     };
+    req.flash("success", "LOGGED YOU IN!");
     res.send(JSON.stringify(returnData));
+    //TODO: jump to homepage
+});
+
+app.get('/logout', (req, res) => {
+    req.logout();
+    console.log('logout successfully!');
+    req.flash("success", "LOGGED YOU OUT!");
+    res.send('logout successfully!');
+    //TODO: jump to login page
 });
 
 //test
@@ -127,54 +145,6 @@ app.get('/session', (req, res) => {
 //
 // });
 
-app.delete('/:userId', (req, res) => {
-    User.remove({_id: req.params.userId})
-        .exec()
-        .then(result => res.status(200).json(result))
-        .catch(e => {
-            console.log(e);
-            res.status(500).json({error: e})
-        });
-});
 
 module.exports = app;
-
-// router.get('/register', function (req, res, next) {
-//     res.render('register', {title: 'Register'})
-// });
-//
-//
-// router.post('/register', function (req, res) {
-//     const newUser = new User({
-//         username: req.body.username,
-//         email: req.body.email,
-//         password: req.body.password,
-//     });
-//     User.register(newUser, req.body.password, function (err, user) {
-//         if (err) {
-//             console.log(err);
-//             return res.render("register", {info: "Sorry. That username already exists. Try again."})
-//         }
-//         passport.authenticate('local')(req, res, () => {
-//             //TODO: jump to main page
-//         });
-//     });
-// });
-//
-// router.get('/login', function (req, res) {
-//     res.render('login', {title: 'Login', user: req.user})
-// });
-//
-// router.post('/login', passport.authenticate('local'), function (req, res) {
-//     res.redirect('/dashboard');
-// });
-//
-// router.get('/logout', function (req, res) {
-//     req.logout();
-//     res.redirect('/');
-// });
-//
-// router.get('/ping', function (req, res) {
-//     res.status(200).send("pong!");
-// });
 

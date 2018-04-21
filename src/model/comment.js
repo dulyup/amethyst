@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 
 const commentSchema = mongoose.Schema({
-    text: String,
+    content: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
-        username: String
-    }
+        username: String,
+    },
 });
 
-module.exports = mogoose.model("Comment", commentSchema);
+module.exports = mongoose.model("Comment", commentSchema);

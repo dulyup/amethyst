@@ -1,0 +1,17 @@
+.homepage{
+    position:relative;
+    text-align: center;
+}
+
+.post-new {
+    position:absolute;
+    right:50px;
+    top:100px;
+    z-index:100;
+
+}
+
+.login-screen {
+    text-align: center;
+}
+

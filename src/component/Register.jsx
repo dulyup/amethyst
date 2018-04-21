@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
-import {register} from "../webService/service";
+import {register} from "../webService/userService";
 import config from '../config.json';
 
 class Register extends Component {
@@ -38,7 +38,7 @@ class Register extends Component {
                     //  console.log("registration successfull");
                     const loginScreen=[];
                     loginScreen.push(<Login parentContext={this}/>);
-                    const loginMessage = "Not Registered yet.Go to registration";
+                    const loginMessage = "Not Registered yet. Go to registration";
                     self.props.parentContext.setState({
                         loginScreen:loginScreen,
                         loginMessage:loginMessage,

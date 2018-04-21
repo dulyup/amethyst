@@ -6,8 +6,8 @@ import TextField from 'material-ui/TextField';
 class PostField extends React.Component {
     state = {
         open: false,
-        post: '',
-        picture: ''
+        content: '',
+        image: ''
     };
 
     render() {
@@ -17,7 +17,7 @@ class PostField extends React.Component {
                 <TextField
                     hintText="Enter Your Sharing"
                     floatingLabelText="Your Sharing"
-                    onChange={(event, newValue) => this.setState({post: newValue})}
+                    onChange={(event, newValue) => this.setState({content: newValue})}
                     style={style}
                     underlineShow={false}
                 />
@@ -26,11 +26,10 @@ class PostField extends React.Component {
                 <TextField
                     hintText="Enter Url of Your Picture"
                     floatingLabelText="Upload Picture"
-                    onChange={(event, newValue) => this.setState({picture: newValue})}
+                    onChange={(event, newValue) => this.setState({image: newValue})}
                     style={style}
                     underlineShow={false}
                 />
-                <Divider/>
             </Paper>
         )
     }

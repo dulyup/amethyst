@@ -56,8 +56,28 @@ export const login = (server, user) => {
         },
         body: JSON.stringify({username: user.username, password: user.password})
     })
-        .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
+        .then(response => response.ok ? response.json() : Promise.reject(response.text())
+
+        )
         .catch( () => Promise.reject('login-fail') );
+};
+
+export const logout = (server) => {
+    const url = `${server}/users/logout`;
+    console.log(url);
+    return fetch(url, {
+        method: 'GET',
+        mode: 'CORS',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        // body: JSON.stringify({username: user.username, password: user.password})
+    })
+        .then(response => response.ok ? response.json() : Promise.reject(response.text())
+
+        )
+        .catch( () => Promise.reject('logout-fail') );
 };
 
 export const getGuess = (server, secretId, common, preGuess) => {

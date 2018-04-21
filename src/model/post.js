@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
 
 const PostSchema = new mongoose.Schema({
-
-    title: {
-        type: String,
-        required: true
+    content: {
+        type: String
     },
-    content: String,
-    image: String,
+    image: {
+        type: String
+    },
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User"
         },
         username: String,
-        avatar: String
+        avatarImg: String,
     },
     like: {
         type: Number,
@@ -32,4 +31,6 @@ const PostSchema = new mongoose.Schema({
     }
 });
 
-module.exports = new mongoose.Model('Post', PostSchema);
+//PS: lowercase of mongoose.model, not mongoose.Model
+module.exports = mongoose.model("Post", PostSchema);
+

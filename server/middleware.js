@@ -1,5 +1,5 @@
-const Comment = require("../react-ui/src/model/comment");
-const Post = require("../react-ui/src/model/post");
+const Comment = require("../src/model/comment");
+const Post = require("../src/model/post");
 
 module.exports = {
     isLoggedIn: function(req, res, next) {

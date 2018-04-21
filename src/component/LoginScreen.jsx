@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Login from './Login';
 import Register from './Register';
-import '../css/mainPage.css';
+import '../css/homepage.css';
 
 class LoginScreen extends Component {
     constructor(props){
@@ -33,7 +33,7 @@ class LoginScreen extends Component {
         if(this.state.isLogin){
             let loginScreen=[];
             loginScreen.push(<Register parentContext={this}/>);
-            loginMessage = "Already registered.Go to Login";
+            loginMessage = "Already registered. Go to Login";
             this.setState({
                 loginScreen:loginScreen,
                 loginMessage:loginMessage,
@@ -43,7 +43,7 @@ class LoginScreen extends Component {
         } else {
             let loginScreen=[];
             loginScreen.push(<Login parentContext={this}/>);
-            loginMessage = "Not Registered yet.Go to registration";
+            loginMessage = "Not Registered yet. Go to registration";
             this.setState({
                 loginScreen:loginScreen,
                 loginMessage:loginMessage,

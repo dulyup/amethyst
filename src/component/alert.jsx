@@ -2,15 +2,13 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import PostField from './PostField';
+
 /**
- * A modal dialog can only be closed by selecting one of the actions.
+ * Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
  */
-class postModalWindow extends React.Component {
+export default class DialogExampleAlert extends React.Component {
     state = {
         open: false,
-        post: '',
-
     };
 
     handleOpen = () => {
@@ -29,29 +27,24 @@ class postModalWindow extends React.Component {
                 onClick={this.handleClose}
             />,
             <FlatButton
-                label="Submit"
+                label="Logout"
                 primary={true}
-                disabled={false}
                 onClick={this.handleClose}
             />,
         ];
 
         return (
             <div>
-                <RaisedButton label="Post New" onClick={this.handleOpen} />
+                <RaisedButton label="Logout" onClick={this.handleOpen} />
                 <Dialog
-                    title="New Post"
                     actions={actions}
-                    modal={true}
+                    modal={false}
                     open={this.state.open}
+                    onRequestClose={this.handleClose}
                 >
-                    <PostField />
-
+                    Are you sure to logout?
                 </Dialog>
-
             </div>
         );
     }
 }
-
-export default postModalWindow;
