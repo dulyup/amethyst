@@ -8,8 +8,6 @@ import '../css/homepage.css';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import {postNew} from "../webService/postService";
-import config from '../config.json';
 
 /**
  * A modal dialog can only be closed by selecting one of the actions.

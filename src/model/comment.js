@@ -8,6 +8,7 @@ const commentSchema = mongoose.Schema({
             ref: "User"
         },
         username: String,
+        avatarImg: String,
     },
 });
 

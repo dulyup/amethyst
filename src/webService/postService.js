@@ -22,7 +22,7 @@ export const postNew = (server, post) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({content: post.content, image:post.image, })
+        body: JSON.stringify({content: post.content, image:post.image})
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
         .catch( () => Promise.reject('register-fail') );

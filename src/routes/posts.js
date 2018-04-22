@@ -31,9 +31,9 @@ app.post('/', (req, res) => {
     const image = req.body.image;
     const author = {
         // id: req.user._id,
-        id: '5ad55b9bcb72a528adada93e',
+        id: '5ad82c878918284443728b2b',
         // username: req.user.user
-        username: 'Ben',
+        username: 'Amy',
         // avatarImg: req.user.avatarImg都应该是存在cookie中的，从req获取，而不是body
         avatarImg: 'http://cdn.shopify.com/s/files/1/2097/9875/products/LEGO-Mario-Odyssey-Square_1024x1024.jpg?v=1510066811'
     };
@@ -47,22 +47,7 @@ app.post('/', (req, res) => {
     // //TODO: check the result of save, and send status of res
 });
 
-// SHOW - shows more info about one campground
-app.get("/:id", function(req, res){
-    //find the campground with provided ID
-    Post.findById(req.params.id).populate("comment")
-        .exec()
-        .then(doc => {
-            console.log(doc);
-            res.status(200).json(doc);
-        })
-        .catch(e => {
-            console.log(e);
-            res.status(500).json({error: e});
-        })
-});
-
-app.put("/:id", function(req, res){
+app.put("/:id", (req, res) => {
     const newData = {content: req.body.content, image: req.body.image};
     Post.findByIdAndUpdate(req.params.id, {$set: newData}, function(err, updatePost){
         if(err){

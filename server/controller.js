@@ -21,6 +21,7 @@ mongoose.connect("mongodb://localhost:27017/sharing");
 //requiring routes
 const userRoutes = require('../src/routes/users');
 const postRoutes = require('../src/routes/posts');
+const commentRoutes = require('../src/routes/comments');
 
 // 配置 session，passport 所需的基础，必须有
 app.use(session({
@@ -52,6 +53,7 @@ app.use(function(req, res, next){
 //=============================
 app.use("/users", userRoutes);
 app.use("/posts", postRoutes);
+app.use("/comments", commentRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server listening at http://localhost:${PORT}`);

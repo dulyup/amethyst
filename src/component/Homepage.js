@@ -15,6 +15,7 @@ class Homepage extends Component {
         this.state={
             username: this.props.username,
             postList: [],
+            update: false,
         }
     }
 
@@ -23,7 +24,11 @@ class Homepage extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState({postList: nextProps.postList });
+        this.setState({
+            postList: nextProps.postList,
+            update: nextProps.update
+        });
+        console.log('refresh');
     }
 
     updatePostList = () => {
@@ -41,7 +46,7 @@ class Homepage extends Component {
 
     addNewPost = (post) => {
         postNew(config['server'], post)
-            .then(res => {
+            .then((res) => {
                 // if (res.status === 200) {
                 this.updatePostList()
                 // }
@@ -51,7 +56,14 @@ class Homepage extends Component {
                 });
     };
 
+    getNewComment = (update) => {
+        if (update) {
+            this.updatePostList()
+        }
+    };
+
     render() {
+        this.state.postList.reverse().map(item =>{console.log(item);console.log(item.commentList)});
         return (
             <div className={'homepage'}>
                 <MuiThemeProvider>
@@ -66,13 +78,16 @@ class Homepage extends Component {
                               this.state.postList.reverse().map(item => {
                                   return (
                                       <PostCard
-                                      key = {item._id}
-                                      author={item.author.username}
-                                      avatarImg={item.author.avatarImg}
-                                      date={item.create_on}
-                                      content={item.content}
-                                      image={item.image}
-                                      like={item.like}
+                                          key = {item._id}
+                                          postId = {item._id}
+                                          author={item.author.username}
+                                          avatarImg={item.author.avatarImg}
+                                          date={item.create_on}
+                                          content={item.content}
+                                          image={item.image}
+                                          like={item.like}
+                                          commentIdList={item.comment}
+                                          updateCommentIdList={this.getNewComment.bind(this)}
                                       />
                                   )
                               })
