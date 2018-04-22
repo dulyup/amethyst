@@ -7,6 +7,7 @@ export const getCommentListByPostId = (server) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        credentials: 'include'
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
         .catch( () => Promise.reject('register-fail') );
@@ -19,8 +20,9 @@ export const getCommentById = (server, commentId) => {
         mode: 'CORS',
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
+        credentials: 'include'
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
         .catch( () => Promise.reject('register-fail') );
@@ -36,6 +38,7 @@ export const addNewComment = (server, postId, comment) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({comment: comment})
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )

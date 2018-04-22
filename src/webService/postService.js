@@ -7,6 +7,7 @@ export const getPostList = (server) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        credentials: 'include'
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
         .catch( () => Promise.reject('register-fail') );
@@ -22,6 +23,7 @@ export const postNew = (server, post) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({content: post.content, image:post.image})
     })
         .then(response => response.ok ? response.json() : Promise.reject(response.text()) )

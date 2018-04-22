@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
 const User = require('../src/model/user');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -28,8 +29,11 @@ app.use(session({
     // 你喜欢的任意名字作为一个加密用的字符串
     secret: 'Aloha',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
 }));
+
+// TODO: req.session.loginUser自己定义，存name和id
 
 // 初始化调用 passport
 app.use(passport.initialize());

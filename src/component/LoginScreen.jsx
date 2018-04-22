@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Login from './Login';
 import Register from './Register';
 import '../css/homepage.css';
+import Homepage from "./Homepage";
 
 class LoginScreen extends Component {
     constructor(props){
@@ -14,13 +15,18 @@ class LoginScreen extends Component {
             loginScreen:[],
             loginMessage:'',
             buttonLabel:'Register',
-            isLogin:true
+            isLogin:true,
+            loggedIn: false,
+            isRegistered: false,
         }
     }
 
     componentWillMount(){
         let loginScreen=[];
-        loginScreen.push(<Login parentContext={this} appContext={this.props.parentContext}/>);
+        loginScreen.push(<Login key={0}
+                                parentContext={this}
+                                appContext={this.props.parentContext}
+                                updateLoginState={this.updateLoginState.bind(this)}/>);
         let loginMessage = "Not registered yet, Register Now";
         this.setState({
             loginScreen:loginScreen,
@@ -28,11 +34,27 @@ class LoginScreen extends Component {
         })
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            loggedIn: nextProps.loggedIn,
+            isRegistered: nextProps.isRegistered
+        });
+    }
+
+    updateLoginState() {
+        this.setState({loggedIn: true});
+    }
+
+    updateRegisterState() {
+        this.setState({isRegistered: true});
+    }
     handleClick(event){
         let loginMessage;
         if(this.state.isLogin){
             let loginScreen=[];
-            loginScreen.push(<Register parentContext={this}/>);
+            loginScreen.push(<Register key={1}
+                                       parentContext={this}
+                                       updateRegisterState={this.updateRegisterState.bind(this)}/>);
             loginMessage = "Already registered. Go to Login";
             this.setState({
                 loginScreen:loginScreen,
@@ -42,7 +64,7 @@ class LoginScreen extends Component {
             })
         } else {
             let loginScreen=[];
-            loginScreen.push(<Login parentContext={this}/>);
+            loginScreen.push(<Login parentContext={this} updateLoginState={this.updateLoginState.bind(this)}/>);
             loginMessage = "Not Registered yet. Go to registration";
             this.setState({
                 loginScreen:loginScreen,
@@ -54,19 +76,26 @@ class LoginScreen extends Component {
     }
     
     render() {
-        return (
-            <div className="login-screen">
-                {this.state.loginScreen}
-                <div>
-                    {this.state.loginMessage}
-                    <MuiThemeProvider>
-                        <div>
-                            <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-                        </div>
-                    </MuiThemeProvider>
+        console.log(this.state.loggedIn);
+        if (this.state.loggedIn) {
+            return (
+                <Homepage/>
+            );
+        } else if (this.state.isRegistered ||!this.state.loggedIn) {
+            return (
+                <div className="login-screen">
+                    {this.state.loginScreen}
+                    <div>
+                        {this.state.loginMessage}
+                        <MuiThemeProvider>
+                            <div>
+                                <RaisedButton label={this.state.buttonLabel} primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
+                            </div>
+                        </MuiThemeProvider>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 }
 const style = {

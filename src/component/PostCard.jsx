@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import {Card, CardActions, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
 import Checkbox from 'material-ui/Checkbox';

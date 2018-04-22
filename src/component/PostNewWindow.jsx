@@ -9,9 +9,6 @@ import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 
-/**
- * A modal dialog can only be closed by selecting one of the actions.
- */
 class postNewWindow extends Component {
     state = {
         open: false,

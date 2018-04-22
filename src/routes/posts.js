@@ -6,7 +6,8 @@ const app = express();
 
 //middleware
 app.use((req,res, next)=>{
-    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
     next();
@@ -17,11 +18,11 @@ app.get('/', (req, res) => {
         .exec()
         .then(doc => {
             console.log(doc);
-            res.status(200).json(doc);
+            res.status(200).send(doc);
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e})
+            res.status(500).send({error: e})
         })
 });
 
@@ -41,7 +42,7 @@ app.post('/', (req, res) => {
     post.save()
         .then(doc => {
             console.log(doc);
-            res.status(200).json(doc);
+            res.status(200).send(doc);
         })
         .catch(e => console.log(e));
     // //TODO: check the result of save, and send status of res
@@ -63,10 +64,10 @@ app.put("/:id", (req, res) => {
 app.delete('/:id', (req, res) => {
     Post.remove({_id: req.params.id})
         .exec()
-        .then(result => res.status(200).json(result))
+        .then(doc => res.status(200).send(doc))
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e})
+            res.status(500).send({error: e})
         });
 });
 

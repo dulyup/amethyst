@@ -10,6 +10,7 @@ import FlatButton from 'material-ui/FlatButton';
 import {getCommentById, addNewComment} from "../webService/commentService";
 import config from '../config.json';
 
+
 class Comment extends Component{
     constructor(props) {
         super(props);
@@ -66,7 +67,6 @@ class Comment extends Component{
     };
 
     render() {
-        // console.log(this.state.submitDisabled);
         const actions = [
             <FlatButton
                 label="Close"
@@ -103,7 +103,6 @@ class Comment extends Component{
                         <br/>
                         <Divider/>
                     </Paper>
-
                 </Dialog>
             )
         } else {
@@ -111,14 +110,16 @@ class Comment extends Component{
                 <div>
                     <Dialog
                         actions={actions}
-                        open={this.state.open}>
+                        open={this.state.open}
+                        autoScrollBodyContent={true}>
                         <Paper zDepth={2}>
                             <Divider/>
                             <TextField
                                 hintText="Add your comment"
                                 floatingLabelText="Your Comment"
-                                onChange={(event, newValue) => {
-                                    this.setState({newComment: newValue}); console.log(this.state.newComment)
+                                onChange={(event, newValue) => {this.setState({newComment: newValue});
+                                    console.log(newValue);
+                                    newValue ? this.setState({submitDisabled: false}) : this.setState({submitDisabled: true})
                                 }}
                                 style={style}
                                 underlineShow={false}
@@ -136,13 +137,14 @@ class Comment extends Component{
                                                 leftAvatar={<Avatar src={item.author.avatarImg}/>}
                                                 secondaryText={
                                                     <p>
-                                                        <span style={{color: darkBlack}}>{item.author.username}</span> --
-                                                        { item.content}
+                                                        <span
+                                                            style={{color: darkBlack}}>{item.author.username}</span> --
+                                                        {item.content}
                                                     </p>
                                                 }
                                                 secondaryTextLines={2}
                                             />
-                                            <Divider />
+                                            <Divider/>
                                         </div>
                                     )
                                 })
@@ -154,7 +156,6 @@ class Comment extends Component{
         }
     }
 }
-
 export default Comment;
 
 const style = {

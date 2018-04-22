@@ -6,7 +6,8 @@ const app = express();
 
 //middleware
 app.use((req,res, next)=>{
-    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
     next();
@@ -17,11 +18,11 @@ app.get('/', (req, res) => {
         .exec()
         .then(doc => {
             console.log(doc);
-            res.status(200).json(doc);
+            res.status(200).send(doc);
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e})
+            res.status(500).send({error: e})
         })
 });
 
@@ -33,14 +34,14 @@ app.get("/:commentId", (req, res) => {
         .then(doc => {
             if (doc) {
                 console.log(doc);
-                res.status(200).json(doc);
+                res.status(200).send(doc);
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'});
+                res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({error: e});
         })
 });
 
@@ -60,17 +61,17 @@ app.post("/:postId", (req, res) => {
             if (post) {
                 newComment.save()
                     .then(doc => {
-                        res.status(200).json(doc);
+                        res.status(200).send(doc);
                     });
                 post.comment.push(newComment);
                 post.save();
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'});
+                res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send(e);
         });
 });
 
@@ -82,17 +83,17 @@ app.delete('/:commentId/postId/:postId', (req, res) => {
             if (post) {
                 Comment.remove({_id: req.params.commentId})
                     .then(doc => {
-                        res.status(200).json(doc);
+                        res.status(200).send(doc);
                     });
                 post.comment.remove(req.params.commentId);
                 post.save();
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'});
+                res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({e});
         });
 });
 
@@ -104,14 +105,14 @@ app.get("/postId/:postId", (req, res) => {
         .then(doc => {
             if (doc) {
                 console.log(doc.commentList);
-                res.status(200).json(doc.commentList);
+                res.status(200).send(doc.commentList);
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'});
+                res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({error: e});
         })
 });
 

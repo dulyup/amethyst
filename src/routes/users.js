@@ -5,7 +5,8 @@ const app = express();
 
 //middleware
 app.use((req,res, next)=>{
-    res.header('Access-Control-Allow-Origin','*');
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Origin','http://localhost:3000');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
     next();
@@ -17,11 +18,11 @@ app.get('/', (req, res) => {
         .exec()
         .then(doc => {
             console.log(doc);
-            res.status(200).json(doc);
+            res.status(200).send(doc);
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e})
+            res.status(500).send({error: e})
         })
 });
 
@@ -31,14 +32,14 @@ app.get('/:userId', (req, res) => {
         .then(doc => {
             if (doc) {
                 console.log(doc);
-                res.status(200).json(doc);
+                res.status(200).send(doc);
             } else {
-                res.status(404).json({message: 'No valid entry found for provided ID'});
+                res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({error: e});
         });
 });
 
@@ -48,14 +49,14 @@ app.get('/:username', (req, res) => {
         .then(doc => {
             if (doc) {
                 console.log(doc);
-                res.status(200).json(doc);
+                res.status(200).send(doc);
             } else {
-                res.status(404).json({message: 'No valid entry found for provided username'});
+                res.status(404).send({message: 'No valid entry found for provided username'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({error: e});
         })
 });
 
@@ -65,14 +66,14 @@ app.get('/:email', (req, res) => {
         .then(doc => {
             if (doc) {
                 console.log(doc);
-                res.status(200).json(doc);
+                res.status(200).send(doc);
             } else {
-                res.status(404).json({message: 'No valid entry found for provided email'});
+                res.status(404).send({message: 'No valid entry found for provided email'});
             }
         })
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e});
+            res.status(500).send({error: e});
         })
 });
 
@@ -102,10 +103,10 @@ app.post('/', (req, res) => {
 app.delete('/:userId', (req, res) => {
     User.remove({_id: req.params.userId})
         .exec()
-        .then(result => res.status(200).json(result))
+        .then(result => res.status(200).send(result))
         .catch(e => {
             console.log(e);
-            res.status(500).json({error: e})
+            res.status(500).send({error: e})
         });
 });
 
@@ -114,10 +115,14 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
     // console.log(req.user);
     const returnData = {
         isSuccess: true,
-        username: req.user.username
+        username: req.user.username,
+        avatarImg: req.user.avatarImg,
     };
+    const name = 'a'
+
+    req.session.xx = {}; //自动有session，cookie，因为有credentials，session每次自动存在
     req.flash("success", "LOGGED YOU IN!");
-    res.send(JSON.stringify(returnData));
+    res.status(200).send(JSON.stringify(returnData));
     //TODO: jump to homepage
 });
 
@@ -134,7 +139,7 @@ app.get('/session', (req, res) => {
     console.log(req.session);
     const sess = req.session;
     console.log(`session id is: ${sess.id}`);
-    res.json(sess);
+    res.send(sess);
 });
 
 // 调用我们之前在 passport-config 中封装的用于验证用户是否已经被验证的中间件函数

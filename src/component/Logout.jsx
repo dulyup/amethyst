@@ -12,19 +12,18 @@ class Logout extends Component {
     constructor(props) {
         super(props);
         this.state={
-            rediect: false,
+            redirect: false,
         }
     }
     handleClick(event){
         console.log('logout clicked');
-        logout(config['server'])
-            .then(res => {
-                console.log(res); //{username: xx, isSuccess: true}
-                // if (res.data.code === 200) {
-
+        // logout(config['server'])
+        //     .then(res => {
+        //         console.log(res);
                 console.log('logout successfully');
                 //TODO: jump to homepage
-                this.setState({redirect: true});
+                this.props.updateLogout();
+                // this.setState({redirect: true});
                 // const uploadScreen = [];
                 // uploadScreen.push(<UploadScreen appContext={self.props.appContext}/>);
                 // self.props.appContext.setState({loginPage:[], uploadScreen: uploadScreen})
@@ -33,10 +32,10 @@ class Logout extends Component {
                 // } else {
                 //     console.log("Username does not exists");
                 // }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+            // })
+            // .catch(function (error) {
+            //     console.log(error);
+            // });
     }
 
     render() {

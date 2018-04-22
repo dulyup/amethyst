@@ -32,20 +32,17 @@ class Register extends Component {
         };
         console.log(user);
         register(config['server'], user)
-            .then(res => {
-                console.log(res);
-                if(res.data.code === 200){
-                    //  console.log("registration successfull");
-                    const loginScreen=[];
-                    loginScreen.push(<Login parentContext={this}/>);
-                    const loginMessage = "Not Registered yet. Go to registration";
-                    self.props.parentContext.setState({
-                        loginScreen:loginScreen,
-                        loginMessage:loginMessage,
-                        buttonLabel:"Register",
-                        isLogin:true
-                    });
-                }
+            .then(() => {
+                const loginScreen=[];
+                loginScreen.push(<Login parentContext={this}/>);
+                const loginMessage = "Not Registered yet. Go to registration";
+                self.props.parentContext.setState({
+                    loginScreen:loginScreen,
+                    loginMessage:loginMessage,
+                    buttonLabel:"Register",
+                    isLogin:true
+                });
+                this.props.updateRegisterState();
             })
             .catch(err => console.log(err));
         //TODO: if registered successfully, jump to Login page
