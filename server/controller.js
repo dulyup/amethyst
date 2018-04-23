@@ -5,25 +5,23 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
-
-const flash = require('connect-flash');
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json({ extended: true, type: '*/*' }) );
-app.use(express.static(path.resolve(__dirname, '../react-react-ui/build')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(cookieParser('secret'));
-app.use(flash());
 
-mongoose.connect("mongodb://localhost:27017/sharing");
+const MONGO_URL = process.env.MONGO_URI || "localhost:27017/sharing";
+mongoose.connect(`mongodb://${MONGO_URL}`);
 mongoose.connection.on('open', function () {
     console.log('-----------db Connect Successfully！------------');
 });
 
 //requiring routes
-const userRoutes = require('./routes/users');
-const postRoutes = require('./routes/posts');
-const commentRoutes = require('./routes/comments');
+const userRoutes = require('../client/src/routes/users');
+const postRoutes = require('../client/src/routes/posts');
+const commentRoutes = require('../client/src/routes/comments');
 
 app.use(session({
     secret: 'Aloha',
