@@ -4,7 +4,6 @@ const Comment = require('../model/comment');
 const Post = require('../model/post');
 const app = express();
 
-
 //middleware
 app.use((req,res, next)=>{
     res.header('Access-Control-Allow-Credentials', 'true');
@@ -13,6 +12,7 @@ app.use((req,res, next)=>{
     res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
     next();
 });
+
 
 /**
  * Get all comments

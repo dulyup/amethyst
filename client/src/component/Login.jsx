@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import {login} from '../webService/userService';
-import config from '../config.json';
+import config from '../config.js';
 
 class Login extends Component {
     constructor(props){
@@ -29,7 +29,7 @@ class Login extends Component {
         };
         this.showElement('#loading');
         this.hideElement('.login');
-        login(config['server'], user)
+        login(config.server, user)
             .then((doc) => {
                 /**
                  * avatar:"https://images.harrods.com/product/harrods/peter-rabbit-printed-notebook_000000000005800701.jpg?dwn=520px:592px"

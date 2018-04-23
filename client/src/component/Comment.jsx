@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {getCommentById, addNewComment} from "../webService/commentService";
-import config from '../config.json';
+import config from '../config.js';
 
 class Comment extends Component{
     constructor(props) {
@@ -41,7 +41,7 @@ class Comment extends Component{
     async handleSubmit() {
         try{
             if (this.state.newComment) {
-                await addNewComment(config['server'], this.state.postId, this.state.newComment);
+                await addNewComment(config.server, this.state.postId, this.state.newComment);
                 this.props.updateCommentIdList(true);
                 this.setState({open: false});
             }
@@ -55,7 +55,7 @@ class Comment extends Component{
             if (this.state.commentIdList) {
                 const commentList = [];
                 for (let id of this.state.commentIdList) {
-                    const comment = await getCommentById(config['server'], id);
+                    const comment = await getCommentById(config.server, id);
                     commentList.push(comment);
                 }
                 await this.setState({commentList: commentList})

@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import '../css/postCard.css'
 import '../css/homepage.css'
 import {getPostByName} from "../webService/postService";
-import config from '../config.json';
+import config from '../config.js';
 
 class MyPost extends Component {
     constructor(props){
@@ -22,7 +22,7 @@ class MyPost extends Component {
     }
 
     async getMyPost() {
-        await getPostByName(config['server'], this.state.username)
+        await getPostByName(config.server, this.state.username)
             .then(doc => {
                 this.setState({postList: doc})
             })

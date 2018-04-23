@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
 import {register} from "../webService/userService";
-import config from '../config.json';
+import config from '../config.js';
 import Alert from './Alert';
 
 class Register extends Component {
@@ -37,7 +37,7 @@ class Register extends Component {
             "email":this.state.email,
             "password":this.state.password
         };
-        await register(config['server'], user)
+        await register(config.server, user)
             .then(doc => {
                 this.setState({text: doc.message, alert: true}, ()=>{
                 this.hideElement('#loader');
