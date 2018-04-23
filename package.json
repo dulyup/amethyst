@@ -22,12 +22,8 @@
   "engines": {
     "npm": "5.6.0"
   },
-  "buildpacks": [
-    {
-      "url": "https://github.com/dulyup/amethyst.git"
-    }
-  ],
   "cacheDirectories": [
-    "node_modules"
+    "node_modules",
+    "client/node_modules"
   ]
 }
