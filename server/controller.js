@@ -9,10 +9,11 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(bodyParser.json({ extended: true, type: '*/*' }) );
-app.use(express.static(path.resolve(__dirname, '../react-react-ui/build')));
+app.use(express.static(path.resolve(__dirname, '../client/build')));
 app.use(cookieParser('secret'));
 
-mongoose.connect("mongodb://localhost:27017/sharing");
+const MONGO_URL = process.env.MONGO_URI || "localhost:27017/sharing";
+mongoose.connect(`mongodb://${MONGO_URL}`);
 mongoose.connection.on('open', function () {
     console.log('-----------db Connect Successfully！------------');
 });
