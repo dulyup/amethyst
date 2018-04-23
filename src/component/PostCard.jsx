@@ -6,7 +6,6 @@ import Checkbox from 'material-ui/Checkbox';
 import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import '../css/postCard.css';
 import Comment from './Comment';
-const img = 'http://experimentexchange.com/wp-content/uploads/2016/07/penguin-baby.jpg';
 
 class PostCard extends Component {
     constructor(props) {
@@ -35,20 +34,11 @@ class PostCard extends Component {
         });
     }
 
-    updateCheck() {
-        this.setState((oldState) => {
-            return {
-                checked: !oldState.checked,
-            };
-        });
-    }
-
     handleOpen = () => {
         this.setState({open: true});
     };
 
     render() {
-        console.log(this.state.commentIdList);
         return (
             <Card className={'post-card'}>
 
@@ -67,23 +57,30 @@ class PostCard extends Component {
                 </CardText>
 
                 <CardActions>
-                    {/*<FlatButton label={`Like ${this.state.like}`} />*/}
                     <FlatButton label="Comment " onClick={this.handleOpen}/>
-                    <Comment open={this.state.open}
+                    <Comment key={this.state.postId}
+                             open={this.state.open}
                              commentIdList={this.state.commentIdList}
                              postId={this.state.postId}
                              updateCommentIdList={this.props.updateCommentIdList}/>
-                    <Checkbox className={'like-button'}
-                              checkedIcon={<ActionFavorite />}
-                              uncheckedIcon={<ActionFavoriteBorder />}
-                              // label={`${this.state.like}`}
-                              style={styles.checkbox}
-                    />
+                    {/*<Checkbox className={'like-button'}*/}
+                              {/*checkedIcon={<ActionFavorite />}*/}
+                              {/*uncheckedIcon={<ActionFavoriteBorder />}*/}
+                              {/*style={styles.checkbox}*/}
+                    {/*/>*/}
                 </CardActions>
 
             </Card>
         );
     }
+
+    // updateCheck() {
+    //     this.setState((oldState) => {
+    //         return {
+    //             checked: !oldState.checked,
+    //         };
+    //     });
+    // }
 }
 
 export default PostCard;

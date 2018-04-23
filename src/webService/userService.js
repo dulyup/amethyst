@@ -44,7 +44,6 @@ export const getUserByName = (server, username) => {
 };
 
 export const register = (server, user) => {
-    console.log(user);
     const url = `${server}/users`;
     return fetch(url, {
         method: 'POST',
@@ -56,7 +55,9 @@ export const register = (server, user) => {
         credentials: 'include',
         body: JSON.stringify({username: user.username, avatar: user.avatar, email: user.email, password: user.password})
     })
-        .then(response => response.ok ? response.json() : Promise.reject(response.text()) )
+        .then(response => {
+            return response.ok ? response.json() : Promise.reject(response.text())}
+        )
         .catch( () => Promise.reject('register-fail') );
 };
 
@@ -82,7 +83,7 @@ export const logout = (server) => {
     const url = `${server}/users/logout`;
     console.log(url);
     return fetch(url, {
-        method: 'GET',
+        method: 'POST',
         mode: 'CORS',
         headers: {
             'Accept': 'application/json',

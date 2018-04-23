@@ -1,22 +1,26 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-/**
- * Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
- */
-export default class DialogExampleAlert extends React.Component {
-    state = {
-        open: false,
-    };
+export default class Alert extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            alert: this.props.alert,
+            text: this.props.text
+        };
+    }
 
-    handleOpen = () => {
-        this.setState({open: true});
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            alert: nextProps.alert,
+            text: nextProps.text,})
     };
 
     handleClose = () => {
-        this.setState({open: false});
+        this.setState({alert: false, text:''});
+        this.props.clearAlert();
     };
 
     render() {
@@ -25,25 +29,21 @@ export default class DialogExampleAlert extends React.Component {
                 label="Cancel"
                 primary={true}
                 onClick={this.handleClose}
-            />,
-            <FlatButton
-                label="Logout"
-                primary={true}
-                onClick={this.handleClose}
-            />,
+            />
         ];
 
         return (
             <div>
-                <RaisedButton label="Logout" onClick={this.handleOpen} />
-                <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose}
-                >
-                    Are you sure to logout?
-                </Dialog>
+                <MuiThemeProvider>
+                    <Dialog
+                        actions={actions}
+                        modal={false}
+                        open={this.state.alert}
+                        onRequestClose={this.handleClose}
+                    >
+                        {this.state.text}
+                    </Dialog>
+                </MuiThemeProvider>
             </div>
         );
     }

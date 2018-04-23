@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
 import {ListItem} from 'material-ui/List';
+import { darkBlack } from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
 import Avatar from 'material-ui/Avatar';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
-import { darkBlack } from 'material-ui/styles/colors';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {getCommentById, addNewComment} from "../webService/commentService";
 import config from '../config.json';
-
 
 class Comment extends Component{
     constructor(props) {

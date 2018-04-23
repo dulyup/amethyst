@@ -1,8 +1,9 @@
+const isLoggedIn = require('../middleware');
 const express = require('express');
-const passport = require('passport');
 const Comment = require('../model/comment');
 const Post = require('../model/post');
 const app = express();
+
 
 //middleware
 app.use((req,res, next)=>{
@@ -13,7 +14,10 @@ app.use((req,res, next)=>{
     next();
 });
 
-app.get('/', (req, res) => {
+/**
+ * Get all comments
+ */
+app.get('/', isLoggedIn, (req, res) => {
     Comment.find()
         .exec()
         .then(doc => {
@@ -26,32 +30,33 @@ app.get('/', (req, res) => {
         })
 });
 
-//Get commentList list by commentList id
-app.get("/:commentId", (req, res) => {
-    console.log(req.params.commentId);
+/**
+ * Get comment by id
+ */
+app.get("/:commentId", isLoggedIn, (req, res) => {
     Comment.findById(req.params.commentId)
         .exec()
         .then(doc => {
             if (doc) {
-                console.log(doc);
                 res.status(200).send(doc);
             } else {
                 res.status(404).send({message: 'No valid entry found for provided ID'});
             }
         })
         .catch(e => {
-            console.log(e);
             res.status(500).send({error: e});
         })
 });
 
-//Create new commentList
-app.post("/:postId", (req, res) => {
+/**
+ * Create new comment
+ */
+app.post("/:postId", isLoggedIn, (req, res) => {
     const comment = req.body.comment;
     const author = {
-        id: '5ad55b9bcb72a528adada93e',
-        username: 'Ben',
-        avatarImg: 'http://www.ilgiornale.it/sites/default/files/foto/2015/06/02/1433229388-gatto.jpg'
+        id: req.session.loginInfo.id,
+        username: req.session.loginInfo.username,
+        avatarImg: req.session.loginInfo.avatar,
     };
     const newComment = new Comment({content: comment, author: author});
     //lookup post using ID
@@ -75,7 +80,7 @@ app.post("/:postId", (req, res) => {
         });
 });
 
-app.delete('/:commentId/postId/:postId', (req, res) => {
+app.delete('/:commentId/postId/:postId', isLoggedIn, (req, res) => {
     //lookup post using ID
     Post.findById(req.params.postId).populate("comment")
         .exec()
@@ -97,15 +102,17 @@ app.delete('/:commentId/postId/:postId', (req, res) => {
         });
 });
 
-// Get commentList list by post id
-app.get("/postId/:postId", (req, res) => {
+/**
+ * Look up commentList list by post id
+ */
+app.get("/postId/:postId", isLoggedIn, (req, res) => {
     //find the campground with provided ID
-    Post.findById(req.params.postId).populate("commentList")
+    Post.findById(req.params.postId).populate("comment")
         .exec()
         .then(doc => {
             if (doc) {
-                console.log(doc.commentList);
-                res.status(200).send(doc.commentList);
+                console.log(doc.comment);
+                res.status(200).send(doc.comment);
             } else {
                 res.status(404).send({message: 'No valid entry found for provided ID'});
             }

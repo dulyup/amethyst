@@ -20,32 +20,50 @@ class Login extends Component {
         this.setState({
             isLoggedIn: nextProps.isLoggedIn,
         });
-        console.log('refresh');
     }
 
     handleClick(event){
-        // Add code in handleClick() after click submit
-        console.log('clicked login');
         const user = {
             "username": this.state.username,
             "password": this.state.password
         };
+        this.showElement('#loading');
+        this.hideElement('.login');
         login(config['server'], user)
-            .then((res) => {
-                console.log(res);
-                //TODO: jump to homepage
-                this.setState({isLoggedIn: true});
-                this.props.updateLoginState();
-                console.log('login successfully');
+            .then((doc) => {
+                /**
+                 * avatar:"https://images.harrods.com/product/harrods/peter-rabbit-printed-notebook_000000000005800701.jpg?dwn=520px:592px"
+                 email:"rob@163.com"
+                 username:"Robert"
+                 */
+                this.props.updateLoginState(doc);
+                this.setState({isLoggedIn: true},()=>{this.hideElement('#loading');this.showElement('.login')}
+                );
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
+    showElement(queryString) {
+        const element = document.querySelector(queryString);
+        if (element) {
+            element.classList.remove('hidden');
+        }
+    }
+
+    hideElement(queryString) {
+        const element = document.querySelector(queryString);
+        if (element) {
+            element.classList.add('hidden');
+        }
+    }
+
     render() {
+        const loading=require('../img/loading.gif');
         return (
-            <div>
+            <div className={'login'}>
+                <div className='hidden' id='loading'><p className='img'><img src={loading} alt="loading gif"/></p></div>
                 <MuiThemeProvider>
                     <div>
                         <AppBar

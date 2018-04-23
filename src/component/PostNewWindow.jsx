@@ -3,11 +3,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import '../css/homepage.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Divider from 'material-ui/Divider';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import '../css/homepage.css';
 
 class postNewWindow extends Component {
     state = {
@@ -55,7 +55,6 @@ class postNewWindow extends Component {
                         <FloatingActionButton className={'post-new'} style={style} onClick={this.handleOpen}>
                             <ContentAdd />
                         </FloatingActionButton>
-                        {/*<RaisedButton label="Post New" onClick={this.handleOpen} />*/}
                         <Dialog
                             title="New Post"
                             actions={actions}
