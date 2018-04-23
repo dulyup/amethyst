@@ -24,10 +24,7 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"node src/controller.js\"",
-    "heroku-postbuild": "cd src/ && npm install && npm run build",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "heroku-postbuild": "cd src/ && npm install && npm run build"
   },
   "buildpacks" : [{
     "url": "https://github.com/dulyup/amethyst.git"
