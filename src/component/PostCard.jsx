@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import ActionFavorite from 'material-ui/svg-icons/action/favorite';
-import Checkbox from 'material-ui/Checkbox';
-import ActionFavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import '../css/postCard.css';
 import Comment from './Comment';
 
@@ -84,12 +81,3 @@ class PostCard extends Component {
 }
 
 export default PostCard;
-
-const styles = {
-    block: {
-        maxWidth: 250,
-    },
-    checkbox: {
-        marginBottom: 16,
-    },
-};

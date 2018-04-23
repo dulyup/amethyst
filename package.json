@@ -26,6 +26,7 @@
     "start": "concurrently \"react-scripts start\" \"node src/controller.js\"",
     "heroku-postbuild": "npm install && npm start"
   },
+  "engines": {"npm": "5.6.0"},
   "buildpacks" : [{
     "url": "https://github.com/dulyup/amethyst.git"
   }],
