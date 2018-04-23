@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField';
 import Login from './Login';
 import {register} from "../webService/userService";
 import config from '../config.json';
-import Alert from './alert';
+import Alert from './Alert';
 
 class Register extends Component {
     constructor(props){

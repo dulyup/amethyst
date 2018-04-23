@@ -1,5 +1,4 @@
 const express = require('express');
-const passport = require('passport');
 const User = require('../model/user');
 const bcrypt = require('bcryptjs');
 const salt = bcrypt.genSaltSync(12);

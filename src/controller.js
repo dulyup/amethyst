@@ -1,6 +1,3 @@
-// import passport from "./passport";
-// const passport = require('passport');
-// const LocalStrategy = require('passport-local').Strategy;
 const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');

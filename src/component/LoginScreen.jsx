@@ -5,7 +5,7 @@ import Homepage from "./Homepage";
 import Login from './Login';
 import Register from './Register';
 import '../css/homepage.css';
-import Alert from "./alert";
+import Alert from "./Alert";
 
 class LoginScreen extends Component {
     constructor(props){
