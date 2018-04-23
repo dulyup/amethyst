@@ -6,7 +6,7 @@ const isLoggedIn = require('../middleware');
 //middleware
 app.use((req,res, next)=>{
     res.header('Access-Control-Allow-Credentials', 'true');
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'https://amethysts.herokuapp.com');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,POST,GET,PUT,DELETE');
     next();
