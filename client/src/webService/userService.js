@@ -1,7 +1,7 @@
 export const getUserList = (server) => {
-    const url = `${server}/users`;
+    const url = `/users`;
     return fetch(url, {
-        method: 'POST',
+        method: 'GET',
         mode: 'CORS',
         headers: {
             'Accept': 'application/json',
@@ -14,7 +14,7 @@ export const getUserList = (server) => {
 };
 
 export const getUserById = (server, userId) => {
-    const url = `${server}/users/:userId`;
+    const url = `/users/${userId}`;
     return fetch(url, {
         method: 'GET',
         mode: 'CORS',
@@ -29,7 +29,7 @@ export const getUserById = (server, userId) => {
 };
 
 export const getUserByName = (server, username) => {
-    const url = `${server}/users/:username`;
+    const url = `/users/${username}`;
     return fetch(url, {
         method: 'GET',
         mode: 'CORS',
@@ -44,7 +44,7 @@ export const getUserByName = (server, username) => {
 };
 
 export const register = (server, user) => {
-    const url = `${server}/users`;
+    const url = `/users`;
     return fetch(url, {
         method: 'POST',
         mode: 'CORS',
@@ -62,7 +62,7 @@ export const register = (server, user) => {
 };
 
 export const login = (server, user) => {
-    const url = `${server}/users/login`;
+    const url = `/users/login`;
     return fetch(url, {
         method: 'POST',
         mode: 'CORS',
@@ -80,7 +80,7 @@ export const login = (server, user) => {
 };
 
 export const logout = (server) => {
-    const url = `${server}/users/logout`;
+    const url = `/users/logout`;
     console.log(url);
     return fetch(url, {
         method: 'POST',
@@ -90,11 +90,8 @@ export const logout = (server) => {
             'Content-Type': 'application/json'
         },
         credentials: 'include',
-        // body: JSON.stringify({username: user.username, password: user.password})
     })
-        .then(response => response.ok ? response.json() : Promise.reject(response.text())
-
-        )
+        .then(response => response.ok ? response.json() : Promise.reject(response.text()))
         .catch( () => Promise.reject('logout-fail') );
 };
 

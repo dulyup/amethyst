@@ -4,7 +4,8 @@
  * @returns {Promise<Response>}
  */
 export const getPostList = (server) => {
-    const url = `${server}/posts`;
+    // const url = `${server}/posts`;
+    const url = `/posts`;
     return fetch(url, {
         method: 'GET',
         mode: 'CORS',
@@ -24,7 +25,8 @@ export const getPostList = (server) => {
  * @returns {Promise<Response>}
  */
 export const getPostByName = (server, username) => {
-    const url = `${server}/posts/${username}`;
+    // const url = `${server}/posts/${username}`;
+    const url = `/posts/${username}`;
     return fetch(url, {
         method: 'GET',
         mode: 'CORS',
@@ -45,7 +47,8 @@ export const getPostByName = (server, username) => {
  * @returns {Promise<Response>}
  */
 export const postNew = (server, post) => {
-    const url = `${server}/posts`;
+    // const url = `${server}/posts`;
+    const url = `/posts`;
     return fetch(url, {
         method: 'POST',
         mode: 'CORS',
