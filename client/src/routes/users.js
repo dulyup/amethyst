@@ -105,9 +105,6 @@ app.post('/', (req, res) => {
         else if (i >= 'A' && i <= 'Z'){upper++}
         else if (i >= '1' && i <= '9'){number++}
     }
-    console.log(lower);
-    console.log(upper);
-    console.log(number);
     if (lower === 0 || upper === 0 || number === 0) {res.status(202).send({code:202,message: 'Invalid Password:must contain lowercase, uppercase and number'});return}
     if (!name) {res.status(404).send({message: 'Invalid username'});return;}
     let count=0;

@@ -32,7 +32,6 @@ export const getUserByName = (server, username) => {
     const url = `/users/${username}`;
     return fetch(url, {
         method: 'GET',
-        mode: 'CORS',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -47,7 +46,6 @@ export const register = (server, user) => {
     const url = `/users`;
     return fetch(url, {
         method: 'POST',
-        mode: 'CORS',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -65,7 +63,6 @@ export const login = (server, user) => {
     const url = `/users/login`;
     return fetch(url, {
         method: 'POST',
-        mode: 'CORS',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -84,7 +81,6 @@ export const logout = (server) => {
     console.log(url);
     return fetch(url, {
         method: 'POST',
-        mode: 'CORS',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
