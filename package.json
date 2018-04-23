@@ -24,12 +24,19 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"node src/controller.js\"",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "heroku-postbuild": "npm install && npm start"
   },
-  "engines": {"npm": "5.6.0"},
-  "buildpacks" : [{
-    "url": "https://github.com/dulyup/amethyst.git"
-  }],
+  "engines": {
+    "npm": "5.6.0"
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/dulyup/amethyst.git"
+    }
+  ],
   "cacheDirectories": [
     "node_modules"
   ]
