@@ -67,7 +67,6 @@ class LoginScreen extends Component {
             });
         } else {
             const self = context.props.parentContext;
-            console.log(self);
             self.setState({
                 loggedIn: true,
                 username: doc.username,
