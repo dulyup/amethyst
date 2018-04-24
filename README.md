@@ -1,5 +1,5 @@
-# Final Project Requirements
 
+# React App 
 ## Link 
 [amethyst](https://amethysts.herokuapp.com/)
 
@@ -26,6 +26,8 @@
 * Frontend: react.js, material-ui
 * Database: mongodb
 * Deployment: Heroku
+
+# Final Project Requirements
 
 ## Who
 Can be done by yourself, or in a partnership or team (max size 5)
