@@ -18,7 +18,9 @@
 * See what others shared
 * Interact with others by giving comments
 * Check out your own posts <br>
-<img src="file:///Users/lyupingdu/Desktop/demo.png" title="demo" width="600" />
+<img src="./client/src/img/demo.png" title="demo" width="500" />
+<br>
+
 ## Skills
 * Backend: node.js, express
 * Frontend: react.js, material-ui
