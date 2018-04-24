@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo')(session);
 const app = express();
 const PORT = process.env.PORT || 4000;
+require('env2')('.env');
 
 app.use(bodyParser.json({ extended: true, type: '*/*' }) );
 app.use(express.static(path.resolve(__dirname, '../client/build')));
