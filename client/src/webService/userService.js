@@ -1,4 +1,4 @@
-export const getUserList = (server) => {
+export const getUserList = () => {
     const url = `/users`;
     return fetch(url, {
         method: 'GET',
@@ -13,7 +13,7 @@ export const getUserList = (server) => {
         .catch( () => Promise.reject('get-user-list-fail') );
 };
 
-export const getUserById = (server, userId) => {
+export const getUserById = (userId) => {
     const url = `/users/${userId}`;
     return fetch(url, {
         method: 'GET',
@@ -28,7 +28,7 @@ export const getUserById = (server, userId) => {
         .catch( () => Promise.reject('get user fail'));
 };
 
-export const getUserByName = (server, username) => {
+export const getUserByName = (username) => {
     const url = `/users/${username}`;
     return fetch(url, {
         method: 'GET',
@@ -42,7 +42,7 @@ export const getUserByName = (server, username) => {
         .catch( () => Promise.reject('get user fail'));
 };
 
-export const register = (server, user) => {
+export const register = (user) => {
     const url = `/users`;
     return fetch(url, {
         method: 'POST',
@@ -59,7 +59,7 @@ export const register = (server, user) => {
         .catch( () => Promise.reject('register-fail') );
 };
 
-export const login = (server, user) => {
+export const login = (user) => {
     const url = `/users/login`;
     return fetch(url, {
         method: 'POST',
@@ -76,7 +76,7 @@ export const login = (server, user) => {
         .catch( () => Promise.reject('login-fail') );
 };
 
-export const logout = (server) => {
+export const logout = () => {
     const url = `/users/logout`;
     console.log(url);
     return fetch(url, {

@@ -9,7 +9,6 @@ import MyPost from './MyPost';
 import RaisedButton from 'material-ui/RaisedButton';
 import {getPostList, postNew} from "../webService/postService";
 import '../css/homepage.css'
-import config from '../config.js';
 
 class Homepage extends Component {
 
@@ -48,7 +47,7 @@ class Homepage extends Component {
     updatePostList = () => {
         this.hideElement('.homepage');
         this.showElement('#loading');
-        getPostList(config.server)
+        getPostList()
             .then(res => {this.setState({postList: res}, ()=>{
                 this.hideElement('#loading');
                 this.showElement('.homepage');
@@ -61,7 +60,7 @@ class Homepage extends Component {
     addNewPost = (post) => {
         this.hideElement('.homepage');
         this.showElement('#loading');
-        postNew(config.server, post)
+        postNew(post)
             .then(() => {
                 this.updatePostList();
                 this.hideElement('#loading');

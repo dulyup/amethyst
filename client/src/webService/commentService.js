@@ -1,4 +1,4 @@
-export const getCommentById = (server, commentId) => {
+export const getCommentById = (commentId) => {
     const url = `/comments/${commentId}`;
     return fetch(url, {
         method: 'GET',
@@ -12,7 +12,7 @@ export const getCommentById = (server, commentId) => {
         .catch( () => Promise.reject('register-fail') );
 };
 
-export const addNewComment = (server, postId, comment) => {
+export const addNewComment = (postId, comment) => {
     const url = `/comments/${postId}`;
     return fetch(url, {
         method: 'POST',

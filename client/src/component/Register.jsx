@@ -5,7 +5,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
 import {register} from "../webService/userService";
-import config from '../config.js';
 import Alert from './Alert';
 
 class Register extends Component {
@@ -37,7 +36,7 @@ class Register extends Component {
             "email":this.state.email,
             "password":this.state.password
         };
-        await register(config.server, user)
+        await register(user)
             .then(doc => {
                 this.setState({text: doc.message, alert: true}, ()=>{
                 this.hideElement('#loader');
@@ -73,10 +72,12 @@ class Register extends Component {
     }
 
     render() {
+        const loading=require('../img/loading.gif');
         if (this.state.open) {return <Alert text={this.state.text} open={this.state.open}/>}
         return (
             <div>
                 <MuiThemeProvider>
+                    <div className='hidden' id='loading'><p className='img'><img src={loading} alt="loading gif"/></p></div>
                     <div className={'login'}>
                         <AppBar
                             title="Register"

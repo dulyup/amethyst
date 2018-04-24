@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import {logout} from "../webService/userService";
-import config from '../config.js';
 import '../css/homepage.css';
 
 const style = {
@@ -18,8 +17,7 @@ class Logout extends Component {
     }
 
     handleClick(event){
-        console.log('logout clicked');
-        logout(config.server)
+        logout()
             .then(() => {
                 console.log('logout successfully');
                 this.props.updateLogout();

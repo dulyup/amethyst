@@ -103,7 +103,7 @@ class LoginScreen extends Component {
             })
         } else {
             let loginScreen=[];
-            loginScreen.push(<Login parentContext={this} updateLoginState={this.updateLoginState.bind(this)}/>);
+            loginScreen.push(<Login key={0} parentContext={this} updateLoginState={this.updateLoginState.bind(this)}/>);
             loginMessage = "Not Registered yet. Go to registration";
             this.setState({
                 loginScreen:loginScreen,

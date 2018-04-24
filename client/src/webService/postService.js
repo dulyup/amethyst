@@ -1,9 +1,8 @@
 /**
  * Get all post list
- * @param server
  * @returns {Promise<Response>}
  */
-export const getPostList = (server) => {
+export const getPostList = () => {
     const url = `/posts`;
     return fetch(url, {
         method: 'GET',
@@ -20,10 +19,9 @@ export const getPostList = (server) => {
 
 /**
  * Look up posts by username
- * @param server
  * @returns {Promise<Response>}
  */
-export const getPostByName = (server, username) => {
+export const getPostByName = (username) => {
     const url = `/posts/${username}`;
     return fetch(url, {
         method: 'GET',
@@ -39,11 +37,10 @@ export const getPostByName = (server, username) => {
 
 /**
  * Add new post
- * @param server
  * @param post
  * @returns {Promise<Response>}
  */
-export const postNew = (server, post) => {
+export const postNew = (post) => {
     const url = `/posts`;
     return fetch(url, {
         method: 'POST',
