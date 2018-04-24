@@ -1,5 +1,30 @@
 # Final Project Requirements
 
+## Link 
+[amethyst](https://amethysts.herokuapp.com/)
+
+## Run locally
+* server:
+    * node server/controller.js
+* client:
+    * cd client
+    * npm install
+    * npm start
+
+## About
+* Share your photos and what you think
+* See what others shared
+* Interact with others by giving comments
+* Check out your own posts
+
+## Skills
+* Backend: node.js, express
+* Frontend: react.js, material-ui
+* Database: mongodb
+* Deployment: Heroku
+
+
+
 ## Who
 Can be done by yourself, or in a partnership or team (max size 5)
 
