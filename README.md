@@ -4,6 +4,8 @@
 [amethyst](https://amethysts.herokuapp.com/)
 
 ## Run locally
+* db
+    * If you'd like to access the remote mongodb server, please contact me for the username and password
 * server:
     * node server/controller.js
 * client:
@@ -22,8 +24,6 @@
 * Frontend: react.js, material-ui
 * Database: mongodb
 * Deployment: Heroku
-
-
 
 ## Who
 Can be done by yourself, or in a partnership or team (max size 5)
