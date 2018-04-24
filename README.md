@@ -17,8 +17,8 @@
 * Share your photos and what you think
 * See what others shared
 * Interact with others by giving comments
-* Check out your own posts
-
+* Check out your own posts <br>
+<img src="file:///Users/lyupingdu/Desktop/demo.png" title="demo" width="600" />
 ## Skills
 * Backend: node.js, express
 * Frontend: react.js, material-ui
