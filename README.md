@@ -1,7 +1,7 @@
 
 # React App 
 ## Link 
-[amethyst](https://amethysts.herokuapp.com/)
+[https://amethysts.herokuapp.com/](https://amethysts.herokuapp.com/)
 
 ## Run locally
 * db
